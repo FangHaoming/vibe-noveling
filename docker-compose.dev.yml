@@ -1,0 +1,33 @@
+version: '3.8'
+
+# 开发环境配置
+# 使用方式: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      # 挂载源代码，支持热重载
+      - ./backend/src:/app/src:ro
+      - ./prompts:/app/prompts:rw
+      - ./chapters:/app/chapters:rw
+      - ./database:/app/database:rw
+    command: yarn dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      # 挂载源代码，支持热重载
+      - ./frontend/src:/app/src:ro
+      - ./frontend/public:/app/public:ro
+      - ./frontend/index.html:/app/index.html:ro
+    command: yarn dev --host 0.0.0.0
+
