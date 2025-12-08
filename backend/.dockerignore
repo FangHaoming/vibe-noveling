@@ -12,7 +12,5 @@ coverage
 *.swp
 *.swo
 *~
-tsconfig.json
-tsconfig.node.json
 package-lock.json
 
