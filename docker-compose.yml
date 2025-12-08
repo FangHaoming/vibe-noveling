@@ -12,11 +12,12 @@ services:
       - PORT=3001
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4}
-      - PROJECT_ROOT=/app
+      - PROJECT_ROOT=/data
     volumes:
-      # 挂载整个项目根目录到容器
-      - .:/app:rw
-    working_dir: /app/backend
+      # 只挂载数据目录，不覆盖构建产物
+      - ./prompts:/data/prompts:rw
+      - ./chapters:/data/chapters:rw
+      - ./database:/data/database:rw
     restart: unless-stopped
     networks:
       - vibe-noveling-network
@@ -45,5 +46,3 @@ services:
 networks:
   vibe-noveling-network:
     driver: bridge
-
-
