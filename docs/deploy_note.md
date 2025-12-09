@@ -1,0 +1,1 @@
+服务器中转用的[openRouter](https://openrouter.ai/docs/quickstart)
